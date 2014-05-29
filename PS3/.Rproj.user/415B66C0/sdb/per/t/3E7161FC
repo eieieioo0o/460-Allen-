@@ -1,0 +1,16 @@
+{
+    "contents" : "# load the R-file to set up the data.\n\n\n\n## plot --------\n\nqplot(df$distance,df$trade) + xlab(\"log of distance\") + ylab(\"log (Xij) : tradeflows\") + ggtitle(\"Correlation\") + geom_smooth();\nggsave(\"dist_tradeflow.eps\",width = 10, height = 10)\n\n\nqplot(df$distance,df$trade-df$gdp_origin -df$gdp_destination) + xlab(\"log of distance\") + ylab(\"log (Xij) - log(Yi) - log(Yj)\") + ggtitle(\"Correlation\") + geom_smooth();\nggsave(\"dist_tradeflow_adjusted.eps\",width = 10, height = 10)\n\n\n## traditional gravity equation ----\n# (a-i)\n\nqplot(df$distance,df$trade-df$gdp_origin -df$gdp_destination) + xlab(\"log of distance\") + ylab(\"log (Xij) - log(Yi) - log(Yj)\") + ggtitle(\"Correlation\") + geom_smooth();\nggsave(\"dist_tradeflow_adjusted.eps\",width = 10, height = 10)\n\nresult_a_i = lm(df$trade-df$gdp_origin -df$gdp_destination ~ 0 +  df$distance);\nsummary(result_a_i)\n\n## with a twist ----\n# (a-ii) \nresult_a_ii = lm(df$trade~ 0 + df$distance + df$gdp_origin + df$gdp_destination);\nsummary(result_a_ii)\n\n\n## fixed effects ----\n# (b)\nresult_b = lm(df_b$trade ~ 0 + . ,data = df_b);\ncoefficient = coef(result_b);\ncoefficient = coefficient[-1];\norigin_effect = coefficient[1:180];\ndestination_effect = coefficient[-c(1:181)]\ndestination_effect = destination_effect[1:180]\nfixed_effects = data.frame(origin_fixed_effects = origin_effect, destination_fixed_effects = destination_effect )\nfixed_effects = na.omit(fixed_effects);\nfixed_effects = sweep(fixed_effects, 2, apply(fixed_effects,2,mean)); \nqplot(fixed_effects$origin_fixed_effects,fixed_effects$destination_fixed_effects) + xlab(\"Origin effect\") + ylab(\"Destination effect\") + ggtitle(\"Fixed effects\") + geom_smooth()\nggsave(\"Fixed_effects.eps\",width = 10, height = 10)\n\n\nsummary(result_b)\n\n\n## Ratio gravity estimator ---\n# (c)\nresult_c = lm(df_c$ratio ~ 0 + . , data = df_c);\nsummary(result_c)\n\n\n## General gravity estimator ---\n# (d)\nresult_d = lm(df_d$trade ~ 0 +. ,data = df_d);\nsummary(result_d)\n\n## balance trade ---\nbalance = lm(df_import_export$import ~ 0 + df_import_export$export)\nrhs = 1;\nhm  = 1;\nlinearHypothesis(balance,hm,rhs)\nsummary(balance)\nsummary(df_import_export)\n\n## 2 (c)\nresult_2 = lm(df_2$trade ~ 0 + . , data  = df_2)\nsummary(result_2)\n\n\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1400991488813.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1361577902",
+    "id" : "3E7161FC",
+    "lastKnownWriteTime" : 1401123009,
+    "path" : "~/Dropbox/Matlab/460(Allen)/PS3/main_Q1.R",
+    "project_path" : "main_Q1.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

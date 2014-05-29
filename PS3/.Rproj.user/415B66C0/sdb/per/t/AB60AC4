@@ -1,0 +1,17 @@
+{
+    "contents" : "## test\n\n\n# this is a code for Treb Allen's trade course.\na = getwd();\nsetwd(a)\nrequire('foreign')\nrequire('plm')\nrequire('mFilter')\nrequire('ggplot2')\nrequire(\"vars\")\nrequire(\"stats\")\nrequire(\"xlsx\")\nrequire(\"reshape2\")\nrequire(\"stargazer\")\nrequire(\"plyr\")\nrequire(\"grid\")\nrequire(\"gridExtra\")\nrequire(\"R.matlab\")\nrequire(\"car\")\nrequire(\"lmtest\")\n\nrm(list=ls());\ngc();\ngc();\n\ny = c(4,4,5,5);\nx = 1:4;\nz = data.frame(x,y)\n\nA = aggregate(z$x,list(by=z$y),FUN = mean)\nnames(A)[1] = c('y')\nM = merge(z,A,  by = \"y\")\nresult = z$x-M[,3]\n\nmydf <- data.frame(x=rnorm(10, mean=-10),y = rnorm(10, mean=10), sex=sample(c(\"M\",\"F\"), 10, rep=T))#, group=gl(5, 20, labels=LETTERS[1:5]))  \nmydf = ddply(mydf, c(\"sex\"), transform, x.mean=mean(y))\n\nmydf <- data.frame(x=-4:4,y = -4:4)\nsweep(mydf, 2, apply(mydf,2,mean)) \n\n#Generate example dataframe with character column\n#Generate example dataframe with character column\n#example <- as.data.frame(c(\"A\", \"A\", \"B\", \"F\", \"C\", \"G\", \"C\", \"D\", \"E\", \"F\"))\n#names(example) <- \"strcol\"\n\n#For every unique value in the string column, create a new 1/0 column\n#This is what Factors do \"under-the-hood\" automatically when passed to function requiring numeric data\nfor(level in unique(mydf$sex)){\n        mydf[paste(\"dummy\", level, sep = \"_\")] <- ifelse(mydf$sex == level, 1, 0)\n}\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1401041154224.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3826257195",
+    "id" : "AB60AC4",
+    "lastKnownWriteTime" : 1401078793,
+    "path" : "~/Dropbox/Matlab/460(Allen)/PS3/delete_later.R",
+    "project_path" : "delete_later.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
